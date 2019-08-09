@@ -1,0 +1,48 @@
+
+— Для вывода данных на экран мы использовали System.out. Для ввода данных будем использовать  System.in.
+
+— Но у System.in есть минус – он позволяет считать с клавиатуры только коды символов. Чтобы обойти эту проблему и считывать большие порции данных за один раз, мы будем использовать более сложную конструкцию:
+
+Пример 1
+Ввод строки и числа с клавиатуры:
+[{                                                                      _
+InputStream inputStream = System.in;                                     |
+Reader inputStreamReader = new InputStreamReader(inputStream);           | <-----|
+BufferedReader bufferedReader = new BufferedReader(inputStreamReader);  _|       |
+                                                                                 |
+String name = bufferedReader.readLine(); //читаем строку с клавиатуры            |
+String sAge = bufferedReader.readLine(); //читаем строку с клавиатуры            |
+int nAge = Integer.parseInt(sAge); //преобразовываем строку в число.             |
+}]                                                                               |
+                                                                                 |
+                                                                                 |
+Пример 2                                                                         |
+Более компактная запись первой части:                                            |
+[{                                                                               |
+BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); <->|
+                                   _                                             |
+String name = reader.readLine();    |                                            |
+String sAge = reader.readLine();    | <-----|                                    |
+int nAge = Integer.parseInt(sAge); _|       |                                    |
+}]                                          |                                    |
+                                            |                                    |
+                                            |                                    |
+Пример 3                                    |                                    |
+Еще более компактная:                       |                                    |
+                                            |                                    |
+Scanner scanner = new Scanner(System.in); ->|>-----------------------------------|
+String name = scanner.nextLine(); -| >------|
+int age = scanner.nextInt();      _|
+
+
+— Вопросы?
+
+— Эээ… Ничего не понятно.
+
+— Чтобы считать строку с клавиатуры, удобнее всего воспользоваться объектом BufferedReader. Но для этого в него нужно передать объект, из которого он будет вычитывать данные – System.in.
+
+— Но System.in и BufferedReader не совместимы друг с другом, поэтому мы используем переходник – еще один объект InputStreamReader.
+
+— Вроде ясно. А что еще за класс Scanner?
+
+— Использовать Scanner довольно удобно, но от этого не очень много пользы. Дело в том, что в будущем (и в учебе, и на работе) ты будешь часто использовать объекты BufferedReader и InputStreamReader и очень-очень редко объект типа Scanner. В данной ситуации он удобен, но в будущем толку от него мало. Так что мы пользоваться им не будем.
